@@ -1,8 +1,7 @@
 package log
 
-// 使用string是为了减少使用Spintf
+// 定义Log接口
 type ILog interface {
-	// new
 	// 普通日志,如果有args，需要格式化
 	Debug(string, ...interface{})
 	Info(string, ...interface{})

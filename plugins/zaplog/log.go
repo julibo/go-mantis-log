@@ -3,6 +3,7 @@ package zaplog
 import (
 	"os"
 	"strings"
+	"time"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -68,31 +69,41 @@ func New(opts ...conf.Option) *Log {
 
 func newZapLogger(level, stacktrace zapcore.Level, output zapcore.WriteSyncer) *zap.Logger {
 	encCfg := zapcore.EncoderConfig{
-		MessageKey:     "msg",
-		LevelKey:       "level",
-		TimeKey:        "@timestamp",
-		NameKey:        "app",
-		CallerKey:      "caller",
-		StacktraceKey:  "stacktrace",
-		LineEnding:     zapcore.DefaultLineEnding,
-		EncodeLevel:    zapcore.LowercaseLevelEncoder, // 小写编码器
-		EncodeTime:     zapcore.ISO8601TimeEncoder,    // ISO8601 UTC 时间格式
+		MessageKey:    "msg",
+		LevelKey:      "level",
+		TimeKey:       "@timestamp",
+		NameKey:       "app",
+		CallerKey:     "caller",
+		StacktraceKey: "stacktrace",
+		LineEnding:    zapcore.DefaultLineEnding,
+		EncodeLevel:   zapcore.LowercaseLevelEncoder, // 小写编码器
+		// EncodeTime:     zapcore.ISO8601TimeEncoder,    // ISO8601 UTC 时间格式
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
-		//EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-		//	enc.AppendString(t.Format("2006-10-02 15:05:05.000"))
-		//},
+		EncodeName:     zapcore.FullNameEncoder,
+		EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+			enc.AppendString(t.Format("2006-10-02 15:05:05.000"))
+		},
 	}
 
-	var encoder zapcore.Encoder
 	// 设置日志级别
 	dyn := zap.NewAtomicLevel()
-	//encCfg.EncodeLevel = zapcore.LowercaseLevelEncoder
-	//encoder = zapcore.NewJSONEncoder(encCfg) // zapcore.NewConsoleEncoder(encCfg)
 	dyn.SetLevel(level)
-	encCfg.EncodeLevel = zapcore.LowercaseLevelEncoder
-	encoder = zapcore.NewJSONEncoder(encCfg)
 
-	return zap.New(zapcore.NewCore(encoder, output, dyn), zap.AddCaller(), zap.AddStacktrace(stacktrace), zap.AddCallerSkip(2))
+	core := zapcore.NewCore(
+		zapcore.NewJSONEncoder(encCfg), // 编码器配置
+		output,                         // 打印到文件和控制台
+		dyn,                            // 日志级别
+	)
 
+	// 开启开发模式，堆栈跟踪
+	caller := zap.AddCaller()
+
+	// 开启文件及行号
+	development := zap.Development()
+
+	// 设置初始化字段
+	filed := zap.Fields(zap.String("serviceName", "serviceName"))
+
+	return zap.New(core, caller, development, zap.AddStacktrace(stacktrace), zap.AddCallerSkip(2), filed)
 }
