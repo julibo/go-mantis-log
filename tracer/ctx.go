@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	opentracing "github.com/opentracing/opentracing-go"
+	"github.com/opentracing/opentracing-go"
 )
 
 // 定义默认的

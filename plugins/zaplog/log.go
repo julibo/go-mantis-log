@@ -79,8 +79,9 @@ func newZapLogger(level, stacktrace zapcore.Level, output zapcore.WriteSyncer) *
 		EncodeLevel:   zapcore.LowercaseLevelEncoder, // 小写编码器
 		// EncodeTime:     zapcore.ISO8601TimeEncoder,    // ISO8601 UTC 时间格式
 		EncodeDuration: zapcore.SecondsDurationEncoder,
-		EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
-		EncodeName:     zapcore.FullNameEncoder,
+		// EncodeCaller:   zapcore.FullCallerEncoder, // 全路径编码器
+		EncodeCaller: zapcore.ShortCallerEncoder, // 路径编码器
+		EncodeName:   zapcore.FullNameEncoder,
 		EncodeTime: func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 			enc.AppendString(t.Format("2006-10-02 15:05:05.000"))
 		},
