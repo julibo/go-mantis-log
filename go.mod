@@ -1,4 +1,4 @@
-module go-mantis-log
+module github.com/julibo/go-mantis-log
 
 go 1.13
 
