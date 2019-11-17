@@ -3,7 +3,7 @@ package zaplog
 import (
 	"context"
 	"fmt"
-	"go-mantis-log/tracer"
+	"github.com/julibo/go-mantis-log/tracer"
 	"go.uber.org/zap"
 )
 

@@ -2,10 +2,10 @@ package log
 
 import (
 	"context"
-	"go-mantis-log/conf"
-	"go-mantis-log/plugins/logrus"
-	"go-mantis-log/plugins/zaplog"
-	"go-mantis-log/tracer"
+	"github.com/julibo/go-mantis-log/conf"
+	"github.com/julibo/go-mantis-log/plugins/logrus"
+	"github.com/julibo/go-mantis-log/plugins/zaplog"
+	"github.com/julibo/go-mantis-log/tracer"
 	"testing"
 	"time"
 )

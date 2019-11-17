@@ -7,8 +7,8 @@ import (
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 
-	"go-mantis-log/conf"
-	"go-mantis-log/fileout"
+	"github.com/julibo/go-mantis-log/conf"
+	"github.com/julibo/go-mantis-log/fileout"
 )
 
 const ProjectName = "project"

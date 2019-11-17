@@ -1,7 +1,7 @@
 package log
 
 import (
-	"go-mantis-log/plugins/zaplog"
+	"github.com/julibo/go-mantis-log/plugins/zaplog"
 )
 
 // 默认

@@ -8,8 +8,8 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"go-mantis-log/conf"
-	"go-mantis-log/fileout"
+	"github.com/julibo/go-mantis-log/conf"
+	"github.com/julibo/go-mantis-log/fileout"
 )
 
 type Log struct {

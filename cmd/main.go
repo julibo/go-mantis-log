@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	log "go-mantis-log"
-	"go-mantis-log/conf"
-	"go-mantis-log/plugins/zaplog"
-	"go-mantis-log/tracer"
+	log "github.com/julibo/go-mantis-log"
+	"github.com/julibo/go-mantis-log/conf"
+	"github.com/julibo/go-mantis-log/plugins/zaplog"
+	"github.com/julibo/go-mantis-log/tracer"
 
 	"time"
 )

@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/julibo/go-mantis-log/tracer"
 	"github.com/sirupsen/logrus"
-	"go-mantis-log/tracer"
 )
 
 func getCtxFileds(llog *Log, args ...interface{}) *logrus.Entry {
